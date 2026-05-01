@@ -10,26 +10,11 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 
-/**
- * Entidade JPA que representa um brinquedo infantil.
- *
- * <p>Mapeamento Oracle:
- * <pre>
- *   Tabela  : TDS_TB_BRINQUEDO
- *   Sequence: SEQ_BRINQUEDOS
- *   Colunas : ID_BRINQUEDO | NM_BRINQUEDO | TP_BRINQUEDO
- *             NR_CLASSIFICACAO | DS_TAMANHO | VL_PRECO
- * </pre>
- *
- * Faixa etária coberta: 0 a 14 anos (conforme enunciado CP2).
- */
+
 @Entity
 @Table(name = "TDS_TB_BRINQUEDO")
 public class Brinquedo {
 
-    /* ------------------------------------------------------------------ */
-    /* Campos                                                               */
-    /* ------------------------------------------------------------------ */
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqBrinquedo")
@@ -57,17 +42,11 @@ public class Brinquedo {
     @Column(name = "VL_PRECO", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
-    /* ------------------------------------------------------------------ */
-    /* Construtores                                                         */
-    /* ------------------------------------------------------------------ */
 
-    /** Construtor vazio exigido pelo JPA. */
+
     protected Brinquedo() {}
 
-    /**
-     * Cria um brinquedo com todos os atributos.
-     * Passe {@code null} em {@code id} para deixar a sequence gerar.
-     */
+
     public Brinquedo(Long id, String nome, String tipo,
                      Integer classificacao, String tamanho, BigDecimal preco) {
         this.id            = id;
@@ -78,14 +57,7 @@ public class Brinquedo {
         this.preco         = preco;
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Atualizador em bloco – usado no PUT                                  */
-    /* ------------------------------------------------------------------ */
 
-    /**
-     * Atualiza todos os campos mutáveis a partir de outro objeto.
-     * Evita chamadas individuais de setter no service.
-     */
     public void atualizarCom(String nome, String tipo,
                              Integer classificacao, String tamanho, BigDecimal preco) {
         this.nome          = nome;
@@ -95,9 +67,6 @@ public class Brinquedo {
         this.preco         = preco;
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Getters (sem setters individuais – use atualizarCom para o PUT)      */
-    /* ------------------------------------------------------------------ */
 
     public Long getId()             { return id; }
     public String getNome()         { return nome; }

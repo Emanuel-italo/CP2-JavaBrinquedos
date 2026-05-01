@@ -1,79 +1,67 @@
 package fiap.com.br.cp2.dto;
 
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
 
-/**
- * DTO de brinquedo implementado como <strong>Java Record</strong> (Java 17).
- *
- * <p>Records são imutáveis por padrão: Jackson usa o construtor canônico
- * para desserialização e os accessors ({@code nome()}, {@code tipo()}, …)
- * para serialização, produzindo JSON idêntico ao exigido pelo CP2.
- *
- * <h3>Validações (Bean Validation – Jakarta)</h3>
- * <table>
- *   <tr><th>Campo</th><th>Regras</th></tr>
- *   <tr><td>nome</td>          <td>@NotBlank, @Size(2‑100)</td></tr>
- *   <tr><td>tipo</td>          <td>@NotBlank, @Size(2‑50)</td></tr>
- *   <tr><td>classificacao</td> <td>@NotNull, @Min(0), @Max(14)</td></tr>
- *   <tr><td>tamanho</td>       <td>@NotBlank, @Size(2‑20)</td></tr>
- *   <tr><td>preco</td>         <td>@NotNull, @DecimalMin("0.01")</td></tr>
- * </table>
- */
-public record BrinquedoDTO(
+public class BrinquedoDTO {
 
-        /** Preenchido nas respostas; ignorado / opcional nas requisições de criação. */
-        Long id,
+    private Long id;
 
-        @NotBlank(message = "O nome do brinquedo é obrigatório.")
-        @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
-        String nome,
+    @NotBlank(message = "O nome do brinquedo não pode estar em branco")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
+    private String nome;
 
-        @NotBlank(message = "O tipo do brinquedo é obrigatório.")
-        @Size(min = 2, max = 50, message = "O tipo deve ter entre 2 e 50 caracteres.")
-        String tipo,
+    @NotBlank(message = "O tipo do brinquedo é obrigatório")
+    @Size(max = 50, message = "O tipo deve ter no máximo 50 caracteres")
+    private String tipo;
 
-        @NotNull(message = "A classificação do brinquedo é obrigatória.")
-        @Min(value = 0,  message = "A classificação mínima é de 0 anos.")
-        @Max(value = 14, message = "A classificação máxima é de 14 anos (infantil).")
-        Integer classificacao,
+    @NotNull(message = "A classificação indicativa é obrigatória")
+    @Min(value = 0, message = "A classificação mínima é 0 anos")
+    @Max(value = 14, message = "A classificação máxima é 14 anos")
+    private Integer classificacao;
 
-        @NotBlank(message = "O tamanho do brinquedo é obrigatório.")
-        @Size(min = 2, max = 20, message = "O tamanho deve ter entre 2 e 20 caracteres.")
-        String tamanho,
+    @NotBlank(message = "O tamanho não pode estar vazio")
+    @Size(max = 20, message = "O tamanho deve ter no máximo 20 caracteres")
+    private String tamanho;
 
-        @NotNull(message = "O preço é obrigatório.")
-        @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero.")
-        BigDecimal preco
+    @NotNull(message = "O preço é obrigatório")
+    @Positive(message = "O preço deve ser maior que zero")
+    private BigDecimal preco;
 
-) {
 
-    /* ------------------------------------------------------------------ */
-    /* Factory – converte entidade → DTO (usado no Service)                */
-    /* ------------------------------------------------------------------ */
+    public BrinquedoDTO() {}
 
-    /**
-     * Cria um {@code BrinquedoDTO} a partir da entidade JPA.
-     * Centraliza o mapeamento no próprio tipo, evitando métodos toDTO/toEntity
-     * espalhados pelo Service.
-     *
-     * @param b entidade persistida
-     * @return DTO pronto para serialização JSON
-     */
-    public static BrinquedoDTO de(fiap.com.br.cp2.entity.Brinquedo b) {
-        return new BrinquedoDTO(
-                b.getId(),
-                b.getNome(),
-                b.getTipo(),
-                b.getClassificacao(),
-                b.getTamanho(),
-                b.getPreco()
-        );
+
+    public BrinquedoDTO(Long id, String nome, String tipo, Integer classificacao, String tamanho, BigDecimal preco) {
+        this.id = id;
+        this.nome = nome;
+        this.tipo = tipo;
+        this.classificacao = classificacao;
+        this.tamanho = tamanho;
+        this.preco = preco;
     }
+
+    // Getters e Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public Integer getClassificacao() { return classificacao; }
+    public void setClassificacao(Integer classificacao) { this.classificacao = classificacao; }
+
+    public String getTamanho() { return tamanho; }
+    public void setTamanho(String tamanho) { this.tamanho = tamanho; }
+
+    public BigDecimal getPreco() { return preco; }
+    public void setPreco(BigDecimal preco) { this.preco = preco; }
 }

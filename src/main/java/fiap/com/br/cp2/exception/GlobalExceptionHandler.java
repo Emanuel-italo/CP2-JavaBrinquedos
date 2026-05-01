@@ -11,20 +11,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Handler global de exceções da API REST.
- *
- * Trata os seguintes casos:
- *   - BrinquedoNotFoundException → HTTP 404 Not Found
- *   - MethodArgumentNotValidException → HTTP 400 Bad Request (Bean Validation)
- *   - Exception (genérico) → HTTP 500 Internal Server Error
- */
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * 404 — Brinquedo não encontrado.
-     */
+
     @ExceptionHandler(BrinquedoNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleBrinquedoNotFound(BrinquedoNotFoundException ex) {
         Map<String, Object> erro = new HashMap<>();
@@ -36,10 +27,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    /**
-     * 400 — Erros de validação dos campos do DTO (Bean Validation).
-     * Retorna o mapa de campos inválidos com as respectivas mensagens.
-     */
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
 
@@ -58,9 +46,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
-    /**
-     * 500 — Erro interno inesperado.
-     */
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericError(Exception ex) {
         Map<String, Object> erro = new HashMap<>();
