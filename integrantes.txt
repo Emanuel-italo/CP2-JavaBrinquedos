@@ -1,0 +1,17 @@
+
+CP2 - Checkpoint 2 | Java Advanced - FIAP 2026
+Disciplina: Java Advanced (TDS)
+Professor: Dr. Marcel Stefan Wagner
+
+
+
+INTEGRANTES DO GRUPO:
+---------------------
+1- RM563811 Paulo Henrique Alves Estalise
+2- RM561337 Emanuel Italo
+3- RM562012 Gabriel Bebe
+
+GITHUB :
+https://github.com/Emanuel-italo/CP2-JavaBrinquedos.git
+
+============================================================
