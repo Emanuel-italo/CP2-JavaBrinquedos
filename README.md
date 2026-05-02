@@ -90,7 +90,7 @@ spring.datasource.username=
 spring.datasource.password=
 ```
 
-> 💡 Substitua `SEU_RM_AQUI` pelo seu RM e `SUA_SENHA_AQUI` pela sua senha FIAP.
+
 
 ---
 
@@ -135,6 +135,7 @@ Antes de começar, você precisará ter as seguintes ferramentas instaladas em s
 
 **1. Clone o repositório**
 Abra o seu terminal e execute o comando abaixo para clonar o projeto:
+
 ```bash
 git clone [https://github.com/Emanuel-italo/CP2-JavaBrinquedos.git]
 cd CP2-Java
